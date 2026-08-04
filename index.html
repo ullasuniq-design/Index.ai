@@ -1,1 +1,220 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Morarji Cricket League</title><link rel="stylesheet" href="style.css"></head><body><div class="header">MORARJI CRICKET LEAGUE</div><div class="search"><label>Player CAP Number</label><div class="row"><input id="cap" placeholder="Enter CAP Number"><button onclick="searchPlayer()">Search</button></div></div><div class="photoWrap"><img id="photo" src="photos/default.jpg" alt="Player Photo"></div><div class="player"><h2 id="name">Search a Player</h2><p id="team"></p></div><div class="grid"><div class="card"><span>Matches</span><b id="mat">-</b></div><div class="card"><span>Innings</span><b id="inns">-</b></div><div class="card"><span>Runs</span><b id="runs">-</b></div><div class="card"><span>Average</span><b id="avg">-</b></div><div class="card"><span>Strike Rate</span><b id="sr">-</b></div><div class="card"><span>Highest</span><b id="highest">-</b></div><div class="card"><span>Balls</span><b id="balls">-</b></div><div class="card"><span>Not Out</span><b id="no">-</b></div><div class="card"><span>4's</span><b id="fours">-</b></div></div><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Morarji Cricket League</title>
+
+style.css
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+
+.header{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:18px;
+    font-size:26px;
+    font-weight:bold;
+}
+
+.searchBox{
+    background:white;
+    padding:15px;
+    text-align:center;
+}
+
+input{
+    width:180px;
+    padding:12px;
+}
+
+button{
+    padding:12px 18px;
+}
+
+.profile{
+    background:white;
+    text-align:center;
+    padding:20px;
+}
+
+.profile img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid #ddd;
+}
+
+.noPhoto{
+    width:180px;
+    height:180px;
+    margin:auto;
+    border-radius:50%;
+    background:#e5e5e5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    color:#666;
+}
+
+.teamList{
+    max-width:800px;
+    margin:auto;
+    font-size:14px;
+    color:#444;
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    padding:10px;
+}
+
+.card{
+    background:#1f95c6;
+    color:white;
+    text-align:center;
+    padding:15px;
+    border-radius:10px;
+}
+
+.card .value{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.sectionTitle{
+    text-align:center;
+    font-weight:bold;
+    margin-top:20px;
+    font-size:22px;
+}
+
+.tableWrap{
+    overflow-x:auto;
+    background:white;
+    margin:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#ffea00;
+    padding:10px;
+}
+
+td{
+    text-align:center;
+    padding:8px;
+    border:1px solid #ddd;
+}
+
+.metric{
+    background:#003366;
+    color:white;
+    text-align:left;
+    padding-left:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+MORARJI CRICKET LEAGUE
+</div>
+
+<div class="searchBox">
+
+<h3>Player CAP Number</h3>
+
+<input id="cap">
+
+<button onclick="searchPlayer()">
+Search
+</button>
+
+</div>
+
+<div class="profile">
+
+<div id="photoArea" class="noPhoto">
+No Photo
+</div>
+
+<h1 id="playerName">
+Search Player
+</h1>
+
+<div id="playerHand"></div>
+
+<br>
+
+<div id="teams" class="teamList"></div>
+
+</div>
+
+<div class="sectionTitle">
+Career Summary
+</div>
+
+<div class="summary">
+
+<div class="card">
+Matches
+<div id="cMatches" class="value">-</div>
+</div>
+
+<div class="card">
+Runs
+<div id="cRuns" class="value">-</div>
+</div>
+
+<div class="card">
+Average
+<div id="cAvg" class="value">-</div>
+</div>
+
+<div class="card">
+Strike Rate
+<div id="cSR" class="value">-</div>
+</div>
+
+<div class="card">
+4's
+<div id="c4s" class="value">-</div>
+</div>
+
+<div class="card">
+6's
+<div id="c6s" class="value">-</div>
+</div>
+
+</div>
+
+<div class="sectionTitle">
+Format Statistics
+</div>
+
+<div id="tableContainer" class="tableWrap"></div>
+
+script.jsscript>
+
+</body>
+</html>
