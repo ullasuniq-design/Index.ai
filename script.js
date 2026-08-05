@@ -1,156 +1,161 @@
-let players = [];
+const players = {
 
-fetch('./players.csv')
-.then(response => response.text())
-.then(data => {
+18:{
+    photo:"photos/18.jpg",
+    name:"KITTY NAIK",
+    batch:"2020",
+    seasons:"MCL01,MCL02",
 
-    const rows = data.split('\n');
-
-    for(let i=1;i<rows.length;i++){
-
-        let row = rows[i].trim();
-
-        if(row.length>0){
-            players.push(row.split(','));
-        }
+    stats:{
+        matches:[25,18,7],
+        innings:[22,16,6],
+        runs:[547,412,135],
+        avg:[34.2,29.4,45.0],
+        highest:[89,67,54],
+        wickets:[12,8,4],
+        overs:[48,35,13],
+        bowlavg:[18.4,21.7,12.2],
+        best:["4/22","3/18","2/11"]
     }
+},
 
-    console.log("Loaded:",players.length);
+19:{
+    photo:"photos/19.jpg",
+    name:"YOGI",
+    batch:"2020",
+    seasons:"MCL01,MCL02",
 
-});
+    stats:{
+        matches:[20,15,5],
+        innings:[18,14,4],
+        runs:[380,240,140],
+        avg:[25,20,35],
+        highest:[71,55,50],
+        wickets:[10,7,3],
+        overs:[40,30,10],
+        bowlavg:[20,18,15],
+        best:["3/15","2/20","2/12"]
+    }
+}
+
+};
 
 function searchPlayer(){
 
-    const cap = document.getElementById("cap").value.trim();
+    const cap =
+    document.getElementById("capInput")
+    .value
+    .trim();
 
-    const records = players.filter(
-        x => x[1] && x[1].trim() === cap
-    );
+    const error =
+    document.getElementById("errorMessage");
 
-    if(records.length===0){
+    document.getElementById("playerCard")
+    .style.display="none";
 
-        alert("Player Not Found");
+    if(cap===""){
+
+        error.innerHTML =
+        "Please enter CAP Number.";
+
         return;
     }
 
-    const playerName = records[0][2] || "-";
-    const hand = records[0][4] || "-";
+    if(!players[cap]){
 
-    document.getElementById("playerName").innerText = playerName;
-    document.getElementById("playerHand").innerText = hand;
+        error.innerHTML =
+        "CAP Number not found. Enter a valid CAP Number. Example: 1, 2, 23";
 
-    let teamSet = new Set();
+        return;
+    }
 
-    let totalMatches = 0;
-    let totalRuns = 0;
-    let total4s = 0;
-    let total6s = 0;
-    let bestScore = "-";
-    let maxSR = 0;
+    error.innerHTML="";
 
-    records.forEach(r=>{
+    let p = players[cap];
 
-        teamSet.add(r[3]);
+    document.getElementById("playerPhoto")
+    .src = p.photo;
 
-        totalMatches += Number(r[5] || 0);
-        totalRuns += Number(r[7] || 0);
-        total4s += Number(r[13] || 0);
-        total6s += Number(r[14] || 0);
+    document.getElementById("playerName")
+    .innerHTML = p.name;
 
-        let sr = parseFloat(r[12]) || 0;
+    document.getElementById("capNo")
+    .innerHTML = cap;
 
-        if(sr > maxSR){
-            maxSR = sr;
-        }
+    document.getElementById("batch")
+    .innerHTML = p.batch;
 
-        if(bestScore === "-"){
-            bestScore = r[9];
-        }
-    });
+    document.getElementById("seasons")
+    .innerHTML = p.seasons;
 
-    document.getElementById("teams").innerHTML =
-        "<b>Teams Played</b><br>" +
-        [...teamSet].join("<br>");
+    document.getElementById("statsTable")
+    .innerHTML = `
 
-    document.getElementById("cMatches").innerText = totalMatches;
-    document.getElementById("cRuns").innerText = totalRuns;
-    document.getElementById("cAvg").innerText = "-";
-    document.getElementById("cSR").innerText = maxSR;
-    document.getElementById("c4s").innerText = total4s;
-    document.getElementById("c6s").innerText = total6s;
+<tr>
+<td>Matches</td>
+<td>${p.stats.matches[0]}</td>
+<td>${p.stats.matches[1]}</td>
+<td>${p.stats.matches[2]}</td>
+</tr>
 
-    const photoArea = document.getElementById("photoArea");
+<tr>
+<td>Innings</td>
+<td>${p.stats.innings[0]}</td>
+<td>${p.stats.innings[1]}</td>
+<td>${p.stats.innings[2]}</td>
+</tr>
 
-    photoArea.innerHTML =
-        `photos/${cap}.jpg"
-        onerror="this.parentElement.innerHTML='No Photo';">`;
+<tr>
+<td>Runs</td>
+<td>${p.stats.runs[0]}</td>
+<td>${p.stats.runs[1]}</td>
+<td>${p.stats.runs[2]}</td>
+</tr>
 
-    buildTable(records);
-}
+<tr>
+<td>Average</td>
+<td>${p.stats.avg[0]}</td>
+<td>${p.stats.avg[1]}</td>
+<td>${p.stats.avg[2]}</td>
+</tr>
 
-function buildTable(records){
+<tr>
+<td>Highest</td>
+<td>${p.stats.highest[0]}</td>
+<td>${p.stats.highest[1]}</td>
+<td>${p.stats.highest[2]}</td>
+</tr>
 
-    let formats = [];
+<tr>
+<td>Wickets</td>
+<td>${p.stats.wickets[0]}</td>
+<td>${p.stats.wickets[1]}</td>
+<td>${p.stats.wickets[2]}</td>
+</tr>
 
-    records.forEach(r=>{
+<tr>
+<td>Overs</td>
+<td>${p.stats.overs[0]}</td>
+<td>${p.stats.overs[1]}</td>
+<td>${p.stats.overs[2]}</td>
+</tr>
 
-        let f = r[0];
+<tr>
+<td>Bowling Avg</td>
+<td>${p.stats.bowlavg[0]}</td>
+<td>${p.stats.bowlavg[1]}</td>
+<td>${p.stats.bowlavg[2]}</td>
+</tr>
 
-        if(!formats.includes(f)){
-            formats.push(f);
-        }
-    });
+<tr>
+<td>Best</td>
+<td>${p.stats.best[0]}</td>
+<td>${p.stats.best[1]}</td>
+<td>${p.stats.best[2]}</td>
+</tr>
 
-    let html = `
-    <table>
-    <tr>
-        <th>Stats</th>`;
+`;
 
-    formats.forEach(f=>{
-        html += `<th>${f}</th>`;
-    });
-
-    html += "</tr>";
-
-    const metrics = [
-
-      ["Matches",5],
-      ["Innings",6],
-      ["Runs",7],
-      ["Balls",8],
-      ["Highest",9],
-      ["N/O",10],
-      ["Average",11],
-      ["Strike Rate",12],
-      ["4s",13],
-      ["6s",14]
-
-    ];
-
-    metrics.forEach(m=>{
-
-        html += `<tr>
-                  <td class='metric'>${m[0]}</td>`;
-
-        formats.forEach(f=>{
-
-            const row = records.find(
-                r => r[0]===f
-            );
-
-            let val = "-";
-
-            if(row && row[m[1]]){
-                val = row[m[1]];
-            }
-
-            html += `<td>${val}</td>`;
-        });
-
-        html += "</tr>";
-    });
-
-    html += "</table>";
-
-    document.getElementById("tableContainer").innerHTML = html;
+    document.getElementById("playerCard")
+    .style.display = "block";
 }
