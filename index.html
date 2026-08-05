@@ -1,319 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganga Sagar Real Estate</title>
 
-<title>MCL Player Statistics</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+        }
 
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f9;
-    margin:0;
-    padding:15px;
-}
+        .hero{
+            height:90vh;
+            background:url("images/hero.jpg") center center/cover;
+            position:relative;
+            color:white;
+        }
 
-.header{
-    background:#003366;
-    color:white;
-    text-align:center;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:15px;
-}
+        .overlay{
+            position:absolute;
+            inset:0;
+            background:rgba(0,0,0,.55);
+        }
 
-.search-box{
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:15px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
+        .hero-content{
+            position:relative;
+            z-index:2;
+            height:100%;
+            display:flex;
+            align-items:center;
+        }
 
-input{
-    width:100%;
-    padding:12px;
-    font-size:16px;
-    border:1px solid #ccc;
-    border-radius:6px;
-}
+        .project-card{
+            transition:.3s;
+        }
 
-button{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    background:#003366;
-    color:white;
-    border:none;
-    border-radius:6px;
-    font-size:16px;
-    cursor:pointer;
-}
+        .project-card:hover{
+            transform:translateY(-8px);
+        }
 
-.error{
-    color:red;
-    margin-top:10px;
-    font-weight:bold;
-    text-align:center;
-}
+        footer{
+            background:#222;
+            color:white;
+        }
 
-.card{
-    display:none;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-.photo{
-    text-align:center;
-}
-
-.photo img{
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    border:4px solid #003366;
-    object-fit:cover;
-}
-
-.name{
-    text-align:center;
-    font-size:22px;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.details{
-    margin-top:15px;
-    line-height:1.8;
-}
-
-.stats-title{
-    margin-top:20px;
-    text-align:center;
-    font-size:20px;
-    font-weight:bold;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:10px;
-}
-
-th{
-    background:#003366;
-    color:white;
-    padding:10px;
-}
-
-td{
-    border:1px solid #ddd;
-    padding:10px;
-    text-align:center;
-}
-
-td:first-child{
-    text-align:left;
-    font-weight:bold;
-}
-
-</style>
+        .whatsapp{
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            background:#25D366;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-decoration:none;
+            font-size:28px;
+            font-weight:bold;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h2>MCL PLAYER STATISTICS</h2>
-</div>
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+<div class="container">
 
-<div class="search-box">
+<a class="navbar-brand fw-bold" href="#">
+Ganga Sagar Real Estate
+</a>
 
-<input
-id="cap"
-type="number"
-placeholder="Enter CAP Number (Example: 1, 2, 23)"
->
-
-<button onclick="searchPlayer()">
-Search
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+<span class="navbar-toggler-icon"></span>
 </button>
 
-<div id="error" class="error"></div>
+<div class="collapse navbar-collapse" id="menu">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+<a class="nav-link active" href="index.html">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="about.html">About</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="projects.html">Projects</a>
+</li>
+
+<li class="nav-item">
+<a class="btn btn-success ms-3" href="https://forms.gle/YOUR_FORM_LINK">
+Register Interest
+</a>
+</li>
+
+</ul>
 
 </div>
 
-<div id="playerCard" class="card">
+</div>
+</nav>
 
-<div class="photo">
+<section class="hero">
+
+<div class="overlay"></div>
+
+<div class="container hero-content">
+
+<div class="col-lg-7">
+
+<h1 class="display-3 fw-bold">
+Find Your Dream Property
+</h1>
+
+<p class="lead mt-3">
+Premium plots, villas, and investment opportunities in prime locations.
+</p>
+
+<a href="https://forms.gle/YOUR_FORM_LINK" class="btn btn-warning btn-lg mt-3">
+Register Interest
+</a>
 
 </div>
 
-<div id="playerName" class="name"></div>
-
-<div class="details">
-<p><b>CAP #:</b> <span id="capNo"></span></p>
-<p><b>Batch:</b> <span id="batch"></span></p>
-<p><b>Played Seasons:</b> <span id="season"></span></p>
 </div>
 
-<div class="stats-title">
-Player Statistics
-</div>
+</section>
 
-<table>
+<section class="py-5">
 
-<thead>
-<tr>
-<th>Statistic</th>
-<th>Turf</th>
-<th>Long</th>
-<th>Short Pitch</th>
-</tr>
-</thead>
+<div class="container">
 
-<tbody id="statsBody">
+<div class="text-center mb-5">
 
-</tbody>
+<h2>Upcoming Projects</h2>
 
-</table>
+<p>Exclusive developments launching soon.</p>
 
 </div>
 
-<script>
+<div class="row">
 
-const players = {
+<div class="col-md-4">
 
-18:{
-name:"KITTY NAIK",
-batch:"2020",
-season:"MCL01,MCL02",
-photo:"photos/18.jpg",
+<div class="card project-card shadow">
 
-stats:{
-matches:[25,18,7],
-innings:[22,16,6],
-runs:[547,412,135],
-avg:[34.2,29.4,45.0],
-highest:[89,67,54],
-wickets:[12,8,4],
-overs:[48,35,13],
-bowlavg:[18.4,21.7,12.2],
-best:["4/22","3/18","2/11"]
-}
-},
+<img src="images/project1.jpg" class="card-img-top">
 
-19:{
-name:"YOGI",
-batch:"2020",
-season:"MCL01,MCL02",
-photo:"photos/19.jpg",
+<div class="card-body">
 
-stats:{
-matches:[20,15,5],
-innings:[18,14,4],
-runs:[380,240,140],
-avg:[25,20,35],
-highest:[71,55,50],
-wickets:[10,7,3],
-overs:[40,30,10],
-bowlavg:[20,18,15],
-best:["3/15","2/20","2/12"]
-}
-}
+<h4>Luxury Villas</h4>
 
-};
+<p>Launching Soon</p>
 
-function searchPlayer(){
+<a href="projects.html" class="btn btn-outline-success">
+Know More
+</a>
 
-let cap=document.getElementById("cap").value.trim();
+</div>
 
-document.getElementById("playerCard").style.display="none";
+</div>
 
-if(cap===""){
-document.getElementById("error").innerHTML=
-"Please enter CAP Number.";
-return;
-}
+</div>
 
-if(!players[cap]){
-document.getElementById("error").innerHTML=
-"CAP Number not found. Enter a valid CAP Number between 1 and 100.<br>Example: 1, 2, 23";
-return;
-}
+<div class="col-md-4">
 
-document.getElementById("error").innerHTML="";
+<div class="card project-card shadow">
 
-let p=players[cap];
+<img src="images/project2.jpg" class="card-img-top">
 
-document.getElementById("photo").src=p.photo;
-document.getElementById("playerName").innerHTML=p.name;
-document.getElementById("capNo").innerHTML=cap;
-document.getElementById("batch").innerHTML=p.batch;
-document.getElementById("season").innerHTML=p.season;
+<div class="card-body">
 
-document.getElementById("statsBody").innerHTML=
+<h4>Premium Plots</h4>
 
-`
-<tr>
-<td>Matches</td>
-<td>${p.stats.matches[0]}</td>
-<td>${p.stats.matches[1]}</td>
-<td>${p.stats.matches[2]}</td>
-</tr>
+<p>Coming Soon</p>
 
-<tr>
-<td>Innings</td>
-<td>${p.stats.innings[0]}</td>
-<td>${p.stats.innings[1]}</td>
-<td>${p.stats.innings[2]}</td>
-</tr>
+<a href="projects.html" class="btn btn-outline-success">
+Know More
+</a>
 
-<tr>
-<td>Runs</td>
-<td>${p.stats.runs[0]}</td>
-<td>${p.stats.runs[1]}</td>
-<td>${p.stats.runs[2]}</td>
-</tr>
+</div>
 
-<tr>
-<td>Average</td>
-<td>${p.stats.avg[0]}</td>
-<td>${p.stats.avg[1]}</td>
-<td>${p.stats.avg[2]}</td>
-</tr>
+</div>
 
-<tr>
-<td>Highest</td>
-<td>${p.stats.highest[0]}</td>
-<td>${p.stats.highest[1]}</td>
-<td>${p.stats.highest[2]}</td>
-</tr>
+</div>
 
-<tr>
-<td>Wickets</td>
-<td>${p.stats.wickets[0]}</td>
-<td>${p.stats.wickets[1]}</td>
-<td>${p.stats.wickets[2]}</td>
-</tr>
+<div class="col-md-4">
 
-<tr>
-<td>Overs</td>
-<td>${p.stats.overs[0]}</td>
-<td>${p.stats.overs[1]}</td>
-<td>${p.stats.overs[2]}</td>
-</tr>
+<div class="card project-card shadow">
 
-<tr>
-<td>Bowling Avg</td>
-<td>${p.stats.bowlavg[0]}</td>
-<td>${p.stats.bowlavg[1]}</td>
-<td>${p.stats.bowlavg[2]}</td>
-</tr>
+<img src="images/project3.jpg" class="card-img-top">
 
-<tr>
-<td>Best</td>
-<td>${p.stats
+<div class="card-body">
+
+<h4>Commercial Spaces</h4>
+
+<p>Launching Soon</p>
+
+<a href="projects.html" class="btn btn-outline-success">
+Know More
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="bg-light py-5">
+
+<div class="container">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<h2>Why Choose Us?</h2>
+
+<ul>
+<li>Trusted Real Estate Partner</li>
+<li>Clear Legal Documentation</li>
+<li>Prime Locations</li>
+<li>Affordable Pricing</li>
+<li>Customer First Approach</li>
+</ul>
+
+</div>
+
+<div class="col-md-6">
+
+<h2>Contact Us</h2>
+
+<p>📞 +91 XXXXX XXXXX</p>
+
+<p>📧 info@example.com</p>
+
+<p>📍 Bengaluru, Karnataka</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="py-4 text-center">
+
+© 2026 Ganga Sagar Real Estate. All Rights Reserved.
+
+</footer>
+
+<a class="whatsapp"
+href="https://wa.me/91XXXXXXXXXX"
+target="_blank">
+💬
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
